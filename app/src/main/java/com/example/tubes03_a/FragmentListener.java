@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface FragmentListener {
     void changePage(int page);
-
+    void createDetails(BikeReport report);
 }

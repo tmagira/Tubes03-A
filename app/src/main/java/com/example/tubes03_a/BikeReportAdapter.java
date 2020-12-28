@@ -2,6 +2,7 @@ package com.example.tubes03_a;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +18,13 @@ import java.util.ArrayList;
 public class BikeReportAdapter extends BaseAdapter {
     private ArrayList<BikeReport> reports;
     private Activity activity;
+    private MainActivity mainActivity;
+    private FragmentListener listener;
 
-    public BikeReportAdapter(Activity activity, ArrayList<BikeReport> reports) {
+    public BikeReportAdapter(Activity activity, ArrayList<BikeReport> reports, FragmentListener listener) {
         this.reports = reports;
         this.activity = activity;
+        this.listener = listener;
     }
 
     @Override
@@ -44,6 +48,14 @@ public class BikeReportAdapter extends BaseAdapter {
         BikeReport currentReport = (BikeReport) this.getItem(i);
         TextView title = convertView.findViewById(R.id.list_title);
         title.setText(currentReport.getTitle());
+
+        title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("lizt", "onClick: "+currentReport.getTitle());
+                listener.createDetails(currentReport);
+            }
+        });
         return convertView;
     }
 }

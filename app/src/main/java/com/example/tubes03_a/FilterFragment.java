@@ -86,10 +86,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener{
     }
 
     public void loadData(ArrayList<BikeReport> reports) {
-//        ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, reports);
-//        listView.setAdapter(arrayAdapter);
-//
-        BikeReportAdapter adapter= new BikeReportAdapter(getActivity(), reports);
+        BikeReportAdapter adapter= new BikeReportAdapter(getActivity(), reports, this.listener);
         listView.setAdapter(adapter);
         Log.d("maknyus", "loadData: berhasil bosqu"+ reports.toString());
     }

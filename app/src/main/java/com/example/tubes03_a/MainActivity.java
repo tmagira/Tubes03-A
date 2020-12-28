@@ -49,4 +49,13 @@ public class MainActivity extends AppCompatActivity implements FragmentListener{
         this.ft.commit();
     }
 
+    @Override
+    public void createDetails(BikeReport report) {
+        this.ft = this.fragmentManager.beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("report", report);
+        this.detailsFragment.setArguments(bundle);
+        changePage(4);
+    }
+
 }

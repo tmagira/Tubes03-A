@@ -5,11 +5,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements FragmentListener{
 
     private DetailsFragment detailsFragment;
-    private FilterFragment filterFragment;
+    protected FilterFragment filterFragment;
     private MapFragment mapFragment;
     private WelcomeFragment welcomeFragment;
      private FragmentManager fragmentManager;
@@ -27,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener{
 
         this.fragmentManager = getSupportFragmentManager();
 
-        changePage(1);
+        changePage(3);
     }
 
     @Override
@@ -45,4 +48,5 @@ public class MainActivity extends AppCompatActivity implements FragmentListener{
         }
         this.ft.commit();
     }
+
 }

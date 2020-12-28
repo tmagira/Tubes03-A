@@ -3,9 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <EditText
+        android:id="@+id/et_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Location"/>
+
+    <Button
+        android:layout_below="@+id/et_location"
+        android:id="@+id/btn_find"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Filter Fragment"/>
+        android:text="Find"/>
+
+    <ListView
+        android:id="@+id/list_report"
+        android:layout_below="@+id/btn_find"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

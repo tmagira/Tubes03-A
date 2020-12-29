@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 public class WelcomeFragment extends Fragment implements View.OnClickListener{
     private FragmentListener listener;
-    private Button btnSearch;
+    private Button btnSearch,btnnMap;
 
     public WelcomeFragment(){}
 
@@ -20,8 +20,9 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.welcome_fragment,container, false);
 
         this.btnSearch = view.findViewById(R.id.btn_search);
-
+        this.btnnMap = view.findViewById(R.id.btn_map);
         this.btnSearch.setOnClickListener(this);
+        this.btnnMap.setOnClickListener(this);
         return view;
     }
 
@@ -42,6 +43,10 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        listener.changePage(2);
+        if (v==this.btnSearch){
+            listener.changePage(3);
+        }else  if (v==this.btnnMap){
+            listener.changePage(2);
+        }
     }
 }

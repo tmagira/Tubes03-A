@@ -2,19 +2,21 @@ package com.example.tubes03_a;
 
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class UIThreadWrapper extends Handler {
     protected MainActivity mainActivity;
     protected FilterFragment filterFragment;
+    protected MapFragment mapFragment;
     protected final int MSG_SEND_REQUEST = 0;
     protected String res = "";
 
     public UIThreadWrapper(FilterFragment filterFragment){
         this.filterFragment = filterFragment;
+    }
+    public UIThreadWrapper(MapFragment mapFragment){
+        this.mapFragment = mapFragment;
     }
 
     @Override

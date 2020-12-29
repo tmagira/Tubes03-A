@@ -7,6 +7,8 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.android.gms.maps.GoogleMap;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements FragmentListener{
@@ -28,10 +30,9 @@ public class MainActivity extends AppCompatActivity implements FragmentListener{
         this.filterFragment = FilterFragment.newInstance();
         this.mapFragment = MapFragment.newInstance();
         this.welcomeFragment = WelcomeFragment.newInstance();
-
         this.fragmentManager = getSupportFragmentManager();
 
-        changePage(3);
+        changePage(2);
     }
 
     @Override

@@ -3,15 +3,26 @@ package com.example.tubes03_a;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+//Kelas Model Bike Report
 public class BikeReport implements Parcelable {
-    private String title;
+    private String title, type, address, desc;
+    private int occurredAt;
 
-    public BikeReport(String title) {
+    //Constructor
+    public BikeReport(String title, String type, int occurredAt,
+                      String address, String desc) {
         this.title = title;
+        this.type = type;
+        this.occurredAt = occurredAt;
+        this.address = address;
+        this.desc = desc;
     }
-
     protected BikeReport(Parcel in) {
         title = in.readString();
+        type = in.readString();
+        occurredAt = in.readInt();
+        address = in.readString();
+        desc = in.readString();
     }
 
     public static final Creator<BikeReport> CREATOR = new Creator<BikeReport>() {
@@ -30,6 +41,10 @@ public class BikeReport implements Parcelable {
     public String toString() {
         return "BikeReport{" +
                 "title='" + title + '\'' +
+                ", type='" + type + '\'' +
+                ", occurredAt='" + occurredAt + '\'' +
+                ", address='" + address + '\'' +
+                ", desc='" + desc + '\'' +
                 '}';
     }
 
@@ -41,6 +56,38 @@ public class BikeReport implements Parcelable {
         this.title = title;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getOccurredAt() {
+        return occurredAt;
+    }
+
+    public void setOccurredAt(int occurredAt) {
+        this.occurredAt = occurredAt;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -49,5 +96,9 @@ public class BikeReport implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.title);
+        dest.writeString(this.type);
+        dest.writeInt(this.occurredAt);
+        dest.writeString(this.address);
+        dest.writeString(this.desc);
     }
 }

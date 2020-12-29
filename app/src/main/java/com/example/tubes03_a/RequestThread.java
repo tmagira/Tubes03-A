@@ -70,18 +70,28 @@ public class RequestThread implements Runnable {
                 ArrayList<BikeReport> resultList = new ArrayList<>();
 
                 for(int i=0;i<obj.getJSONArray("incidents").length();i++){
-                    BikeReport newReport = new BikeReport((String) obj.getJSONArray("incidents").getJSONObject(i).get("title"));
-                    Log.d("cok", "run: "+ newReport.getTitle());
+                    //Mengambil value dari JSON
+//                    String title = (String) obj.getJSONArray("incidents").getJSONObject(i).get("title");
+//                    String type = (String) obj.getJSONArray("incidents").getJSONObject(i).get("type");
+//                    int occuredAt = (int) obj.getJSONArray("incidents").getJSONObject(i).get("occurred_at");
+//                    String address = (String) obj.getJSONArray("incidents").getJSONObject(i).get("address");
+//                    String desc = (String) obj.getJSONArray("incidents").getJSONObject(i).get("description");
+
+                    String title = (String) obj.getJSONArray("incidents").getJSONObject(i).get("title");
+                    String type = (String) obj.getJSONArray("incidents").getJSONObject(i).get("type");
+                    int occuredAt = (int) obj.getJSONArray("incidents").getJSONObject(i).get("occurred_at");
+                    String address = (String) obj.getJSONArray("incidents").getJSONObject(i).get("address");
+                    String desc = "test";//BUG
+
+                    BikeReport newReport = new BikeReport(title, type, occuredAt, address, desc);
                     resultList.add(newReport);
                 }
+
                 this.uiThreadWrapper.setResult(resultList);
 
             } catch (Throwable t) {
                 Log.e("My App", "Could not parse malformed JSON: ");
             }
-
-
-
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

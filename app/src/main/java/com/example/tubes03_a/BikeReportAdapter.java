@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+//List Adapter untuk BikeReports
 public class BikeReportAdapter extends BaseAdapter {
     private ArrayList<BikeReport> reports;
     private Activity activity;
@@ -49,10 +50,10 @@ public class BikeReportAdapter extends BaseAdapter {
         TextView title = convertView.findViewById(R.id.list_title);
         title.setText(currentReport.getTitle());
 
+        //Set onClickListener tiap baris list untuk membuat fragmment details
         title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("lizt", "onClick: "+currentReport.getTitle());
                 listener.createDetails(currentReport);
             }
         });

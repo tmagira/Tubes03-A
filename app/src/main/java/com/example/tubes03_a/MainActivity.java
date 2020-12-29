@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener{
     protected FilterFragment filterFragment;
     private MapFragment mapFragment;
     private WelcomeFragment welcomeFragment;
-     private FragmentManager fragmentManager;
+    private FragmentManager fragmentManager;
     private FragmentTransaction ft;
 
     @Override
@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Assign variables
         this.detailsFragment = DetailsFragment.newInstance();
         this.filterFragment = FilterFragment.newInstance();
         this.mapFragment = MapFragment.newInstance();
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener{
 
     @Override
     public void createDetails(BikeReport report) {
+        //Mengirim bundle ke details fragment
         this.ft = this.fragmentManager.beginTransaction();
         Bundle bundle = new Bundle();
         bundle.putParcelable("report", report);

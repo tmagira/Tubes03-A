@@ -7,49 +7,44 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 public class DetailsFragment extends Fragment {
     private FragmentListener listener;
-    private TextView tvTitle;
+    private TextView tvTitle, tvType, tvDate, tvAddress, tvDesc;
     private BikeReport report;
 
     public DetailsFragment(){}
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.details_fragment,container, false);
 
+        //Assign variables
         this.tvTitle = view.findViewById(R.id.tv_title);
-        Log.d("okk", "increate: "+this.tvTitle);
+        this.tvType = view.findViewById(R.id.tv_type);
+        this.tvDate = view.findViewById(R.id.tv_date);
+        this.tvAddress = view.findViewById(R.id.tv_address);
+        this.tvDesc = view.findViewById(R.id.tv_desc);
 
+        //Membaca Bundle
         Bundle b = getArguments();
         if (b != null) {
             this.report = b.getParcelable("report");
+
+            //Set texts
             this.tvTitle.setText(this.report.getTitle());
-
-//            String tags = "";
-//            for (int i = 0; i < menu.getTag().length(); i++) {
-//                if (i != menu.getTag().length() - 1) {
-//                    tags = menu.getTag() ;
-//                } else {
-//                    tags = menu.getTag();
-//                }
-//            }
-//            this.tvTag.setText(tags);
-
+            this.tvType.setText(this.report.getType());
+            this.tvDate.setText(String.valueOf(this.report.getOccurredAt()));
+            this.tvAddress.setText(this.report.getAddress());
+            this.tvDesc.setText(this.report.getDesc());
         } else {
-            Log.d("debug", "onCreateView: Report Not Found");
+            Toast.makeText(getActivity(), "Report Not Found",Toast.LENGTH_LONG).show();
         }
 
         return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 
     @Override
@@ -67,8 +62,4 @@ public class DetailsFragment extends Fragment {
         return fragment;
     }
 
-    public void renderDetails(BikeReport report) {
-        Log.d("okk", "renderDetails: "+this.tvTitle);
-        this.tvTitle.setText("cek");
-    }
 }

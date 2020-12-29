@@ -30,7 +30,6 @@ public class UIThreadWrapper extends Handler {
         msg.what = MSG_SEND_REQUEST;
         msg.obj = result;
         this.sendMessage(msg);
-        Log.d("maknyus", "setMsgShowResult: result "+result);
     }
 }
 

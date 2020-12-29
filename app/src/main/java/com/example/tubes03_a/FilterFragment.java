@@ -55,10 +55,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener{
 
         this.btnFind.setOnClickListener(this);
 
-        this.reports.add(new BikeReport("ok"));
-        //BikeReportAdapter adapter= new BikeReportAdapter(getContext(), R.layout.list_layout, reports);
         this.listView = view.findViewById(R.id.list_report);
-        //listView.setAdapter(adapter);
 
         return view;
     }
@@ -81,13 +78,15 @@ public class FilterFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         this.proximity = this.etLocation.getText().toString();
+
+        //Membuat thread untuk request data ke BikeWise API
         this.requestThread = new RequestThread(this.mainActivity,this.uiThreadWrapper, this.proximity);
         this.requestThread.startThread();
     }
 
+    //Menampilkan data incident dari BikeWise API ke dalam list
     public void loadData(ArrayList<BikeReport> reports) {
         BikeReportAdapter adapter= new BikeReportAdapter(getActivity(), reports, this.listener);
         listView.setAdapter(adapter);
-        Log.d("maknyus", "loadData: berhasil bosqu"+ reports.toString());
     }
 }

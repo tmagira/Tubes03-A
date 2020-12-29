@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener{
         this.welcomeFragment = WelcomeFragment.newInstance();
         this.fragmentManager = getSupportFragmentManager();
 
-        changePage(2);
+        changePage(3);
     }
 
     @Override

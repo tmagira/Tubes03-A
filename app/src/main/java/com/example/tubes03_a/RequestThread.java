@@ -71,17 +71,18 @@ public class RequestThread implements Runnable {
 
                 for(int i=0;i<obj.getJSONArray("incidents").length();i++){
                     //Mengambil value dari JSON
-//                    String title = (String) obj.getJSONArray("incidents").getJSONObject(i).get("title");
-//                    String type = (String) obj.getJSONArray("incidents").getJSONObject(i).get("type");
-//                    int occuredAt = (int) obj.getJSONArray("incidents").getJSONObject(i).get("occurred_at");
-//                    String address = (String) obj.getJSONArray("incidents").getJSONObject(i).get("address");
-//                    String desc = (String) obj.getJSONArray("incidents").getJSONObject(i).get("description");
-
                     String title = (String) obj.getJSONArray("incidents").getJSONObject(i).get("title");
                     String type = (String) obj.getJSONArray("incidents").getJSONObject(i).get("type");
                     int occuredAt = (int) obj.getJSONArray("incidents").getJSONObject(i).get("occurred_at");
                     String address = (String) obj.getJSONArray("incidents").getJSONObject(i).get("address");
-                    String desc = "test";//BUG
+                    String desc = "No Description";
+
+                    try {
+                        desc = (String) obj.getJSONArray("incidents").getJSONObject(i).get("description");
+                    }
+                    catch(Exception e) {
+                        Log.d("app", "run: Description null");
+                    }
 
                     BikeReport newReport = new BikeReport(title, type, occuredAt, address, desc);
                     resultList.add(newReport);

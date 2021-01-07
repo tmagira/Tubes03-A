@@ -57,4 +57,13 @@
         android:layout_height="wrap_content"
         android:text="Description of the Incident"/>
 
+
+
+    <fragment
+        android:id="@+id/google_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_below="@id/tv_desc"
+        android:layout_height="200dp"></fragment>
+
 </RelativeLayout>

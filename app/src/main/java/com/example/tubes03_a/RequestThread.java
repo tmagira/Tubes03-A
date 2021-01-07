@@ -75,6 +75,7 @@ public class RequestThread implements Runnable {
                     String type = (String) obj.getJSONArray("incidents").getJSONObject(i).get("type");
                     int occuredAt = (int) obj.getJSONArray("incidents").getJSONObject(i).get("occurred_at");
                     String address = (String) obj.getJSONArray("incidents").getJSONObject(i).get("address");
+                    String link = (String) obj.getJSONArray("media").getJSONObject(i).get("image_url");
                     String desc = "No Description";
 
                     try {
@@ -83,9 +84,10 @@ public class RequestThread implements Runnable {
                     catch(Exception e) {
                         Log.d("app", "run: Description null");
                     }
-
-                    BikeReport newReport = new BikeReport(title, type, occuredAt, address, desc);
+                    //buat objek bike new report
+                    BikeReport newReport = new BikeReport(title, type, occuredAt, address,link, desc);
                     resultList.add(newReport);
+                    Log.d("app",link);
                 }
 
                 this.uiThreadWrapper.setResult(resultList);

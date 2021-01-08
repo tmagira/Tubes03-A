@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 //Kelas Model Bike Report
 public class BikeReport implements Parcelable {
-    private String title, type, address, link, desc;
+    private String title, type, address, linkImage, desc;
     private int occurredAt;
 
     //Constructor
@@ -15,7 +15,7 @@ public class BikeReport implements Parcelable {
         this.type = type;
         this.occurredAt = occurredAt;
         this.address = address;
-        this.link = link;
+        this.linkImage = link;
         this.desc = desc;
     }
 
@@ -24,7 +24,7 @@ public class BikeReport implements Parcelable {
         type = in.readString();
         occurredAt = in.readInt();
         address = in.readString();
-        link = in.readString();
+        linkImage = in.readString();
         desc = in.readString();
     }
 
@@ -45,9 +45,10 @@ public class BikeReport implements Parcelable {
         return "BikeReport{" +
                 "title='" + title + '\'' +
                 ", type='" + type + '\'' +
-                ", occurredAt='" + occurredAt + '\'' +
                 ", address='" + address + '\'' +
+                ", linkImage='" + linkImage + '\'' +
                 ", desc='" + desc + '\'' +
+                ", occurredAt=" + occurredAt +
                 '}';
     }
 
@@ -76,11 +77,11 @@ public class BikeReport implements Parcelable {
     }
 
     public String getLink() {
-        return link;
+        return linkImage;
     }
 
     public void setLink(String link) {
-        this.link = link;
+        this.linkImage = link;
     }
 
     public int getOccurredAt() {
@@ -111,5 +112,6 @@ public class BikeReport implements Parcelable {
         dest.writeInt(this.occurredAt);
         dest.writeString(this.address);
         dest.writeString(this.desc);
+        dest.writeString(this.linkImage);
     }
 }

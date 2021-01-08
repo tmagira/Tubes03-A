@@ -75,9 +75,16 @@ public class RequestThread implements Runnable {
                     String type = (String) obj.getJSONArray("incidents").getJSONObject(i).get("type");
                     int occuredAt = (int) obj.getJSONArray("incidents").getJSONObject(i).get("occurred_at");
                     String address = (String) obj.getJSONArray("incidents").getJSONObject(i).get("address");
-                    String link = (String) obj.getJSONArray("media").getJSONObject(i).get("image_url");
-                    String desc = "No Description";
 
+                    String linkImage = "No Image";
+                    try {
+                        linkImage = (String) obj.getJSONArray("incidents").getJSONObject(i).getJSONObject("media").get("image_url");
+                    }
+                    catch(Exception e) {
+                        Log.d("app", "run: Image null");
+                    }
+
+                    String desc = "No Description";
                     try {
                         desc = (String) obj.getJSONArray("incidents").getJSONObject(i).get("description");
                     }
@@ -85,9 +92,8 @@ public class RequestThread implements Runnable {
                         Log.d("app", "run: Description null");
                     }
                     //buat objek bike new report
-                    BikeReport newReport = new BikeReport(title, type, occuredAt, address,link, desc);
+                    BikeReport newReport = new BikeReport(title, type, occuredAt, address,linkImage, desc);
                     resultList.add(newReport);
-                    Log.d("app",link);
                 }
 
                 this.uiThreadWrapper.setResult(resultList);

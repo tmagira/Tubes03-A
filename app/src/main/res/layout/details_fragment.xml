@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_picture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="0dp"
+        android:background="#ffffff"/>
 
     <TextView
         android:id="@+id/tv_title"
-        android:textAlignment="center"
+        android:layout_below="@+id/iv_picture"
         android:textSize="20sp"
         android:textColor="@color/design_default_color_primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Title of the Incident"/>
-
-    <TextView
-        android:id="@+id/tv_type"
-        android:layout_below="@+id/tv_title"
-        android:textAlignment="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Type"
-        android:layout_marginBottom="30sp"/>
+        android:text="Title of the Incident"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"/>
 
     <TextView
         android:id="@+id/tv_date"
-        android:layout_below="@+id/tv_type"
+        android:layout_below="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Type"/>
+        android:text="Date"/>
 
     <TextView
         android:id="@+id/title_loc"
         android:layout_below="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Location :"/>
+        android:text="Location : "/>
 
     <TextView
         android:id="@+id/tv_address"
@@ -43,9 +47,31 @@
         android:layout_height="wrap_content"
         android:text="Address of the incident"/>
 
+    <fragment
+        android:id="@+id/google_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_below="@id/tv_address"
+        android:layout_height="150dp" />
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_below="@+id/google_map"
+        android:layout_toRightOf="@+id/title_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type" />
+
+    <TextView
+        android:id="@+id/title_type"
+        android:layout_below="@+id/google_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type : "/>
+
     <TextView
         android:id="@+id/title_desc"
-        android:layout_below="@+id/tv_address"
+        android:layout_below="@+id/title_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Description :"/>
@@ -59,11 +85,9 @@
 
 
 
-    <fragment
-        android:id="@+id/google_map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_below="@id/tv_desc"
-        android:layout_height="200dp"></fragment>
+
+
+
 
 </RelativeLayout>
+    </ScrollView>

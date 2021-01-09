@@ -41,7 +41,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener{
     private ListView listView;
 
     public String proximity;
-
+    BikeReportAdapter adapter;
     public FilterFragment(){}
 
     @Override
@@ -56,7 +56,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener{
         this.btnFind.setOnClickListener(this);
 
         this.listView = view.findViewById(R.id.list_report);
-
+        this.adapter= new BikeReportAdapter(getActivity(), reports, this.listener);
         return view;
     }
 
@@ -86,7 +86,14 @@ public class FilterFragment extends Fragment implements View.OnClickListener{
 
     //Menampilkan data incident dari BikeWise API ke dalam list
     public void loadData(ArrayList<BikeReport> reports) {
-        BikeReportAdapter adapter= new BikeReportAdapter(getActivity(), reports, this.listener);
+        adapter= new BikeReportAdapter(getActivity(), reports, this.listener);
         listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        etLocation.setText(etLocation.getText().toString());
+        adapter.notifyDataSetChanged();
     }
 }

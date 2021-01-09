@@ -1,6 +1,8 @@
 package com.example.tubes03_a;
 
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,16 +14,25 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
-public class DetailsFragment extends Fragment {
+public class DetailsFragment extends Fragment implements  OnMapReadyCallback{
     private FragmentListener listener;
     private TextView tvTitle, tvType, tvDate, tvAddress, tvDesc;
     private ImageView ivPic;
     private BikeReport report;
+    private GoogleMap googleMap;
 
     public DetailsFragment(){}
 
@@ -58,6 +69,8 @@ public class DetailsFragment extends Fragment {
 
 
             Picasso.get().load(this.report.getLink()).into(this.ivPic);
+            Toast.makeText(getActivity(), getLocationFromAddress(getContext(),this.report.getAddress()).toString(),Toast.LENGTH_LONG).show();
+          //  onMapReady(googleMap);
         } else {
             Toast.makeText(getActivity(), "Report Not Found",Toast.LENGTH_LONG).show();
         }
@@ -78,6 +91,39 @@ public class DetailsFragment extends Fragment {
     public static DetailsFragment newInstance(){
         DetailsFragment fragment = new DetailsFragment();
         return fragment;
+    }
+
+    //ubah location name jadi lat long
+    public LatLng getLocationFromAddress(Context context,String strAddress) {
+
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        LatLng p1 = null;
+
+        try {
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+
+            Address location = address.get(0);
+            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        return p1;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap){
+        LatLng loc = getLocationFromAddress(getContext(),this.report.getAddress());
+        googleMap.addMarker(new MarkerOptions()
+                .position(loc)
+                .title("Tempat Terjadi Insiden"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
     }
 
 }

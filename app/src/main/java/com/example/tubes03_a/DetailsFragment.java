@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -33,7 +34,7 @@ public class DetailsFragment extends Fragment implements  OnMapReadyCallback{
     private ImageView ivPic;
     private BikeReport report;
     private GoogleMap googleMap;
-
+    private MapFragment mapFragment;
     public DetailsFragment(){}
 
     @Override
@@ -70,7 +71,21 @@ public class DetailsFragment extends Fragment implements  OnMapReadyCallback{
 
             Picasso.get().load(this.report.getLink()).into(this.ivPic);
             Toast.makeText(getActivity(), getLocationFromAddress(getContext(),this.report.getAddress()).toString(),Toast.LENGTH_LONG).show();
-          //  onMapReady(googleMap);
+            SupportMapFragment mapFragment = ((SupportMapFragment) getChildFragmentManager()
+                    .findFragmentById(R.id.google_map2));
+            mapFragment.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap){
+                    LatLng loc = getLocationFromAddress(getContext(),tvAddress.getText().toString());
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(loc)
+                            .title("Tempat Terjadi Insiden"));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+                    googleMap.animateCamera(CameraUpdateFactory.zoomIn());
+                    // Zoom out to zoom level 10, animating with a duration of 2 seconds.
+                    googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+                }
+            });
         } else {
             Toast.makeText(getActivity(), "Report Not Found",Toast.LENGTH_LONG).show();
         }

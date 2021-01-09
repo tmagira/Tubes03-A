@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/iv_picture"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="210dp"
         android:padding="0dp"
         android:background="#ffffff"/>
 
@@ -48,7 +48,7 @@
         android:text="Address of the incident"/>
 
     <fragment
-        android:id="@+id/google_map"
+        android:id="@+id/google_map2"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_below="@id/tv_address"
@@ -56,7 +56,7 @@
 
     <TextView
         android:id="@+id/tv_type"
-        android:layout_below="@+id/google_map"
+        android:layout_below="@+id/google_map2"
         android:layout_toRightOf="@+id/title_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
 
     <TextView
         android:id="@+id/title_type"
-        android:layout_below="@+id/google_map"
+        android:layout_below="@+id/google_map2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Type : "/>

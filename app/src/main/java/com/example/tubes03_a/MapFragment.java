@@ -1,6 +1,8 @@
 package com.example.tubes03_a;
 
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +17,16 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 public class MapFragment extends Fragment implements View.OnClickListener {
     private FragmentListener listener;
     private Button btnSearchMarker;
     public String proximity;
-    LatLng position;
+    LatLng pos;
+    String location;
     private UIThreadWrapper uiThreadWrapper;
     private MainActivity mainActivity;
     private RequestThread requestThread;
@@ -39,14 +46,22 @@ public class MapFragment extends Fragment implements View.OnClickListener {
                     public void onMapClick(LatLng latLng) {
                         MarkerOptions markerOptions = new MarkerOptions();
                         markerOptions.position(latLng);
+                        pos = latLng;
                         markerOptions.title(latLng.latitude +":"+latLng.longitude);
-                        position= latLng;
                         googleMap.clear();
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                                 latLng,10
                         ));
                         googleMap.addMarker(markerOptions);
+                        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+                        try {
+                            List<Address> list = geocoder.getFromLocation(pos.latitude,pos.longitude,1);
+                            location = list.get(0).getAddressLine(0)+", "+list.get(0).getCountryName();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
+
                 });
             }
         });
@@ -70,7 +85,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
     }
     @Override
     public void onClick(View v) {
-        this.proximity = this.position.toString();
+        this.proximity = location;
         //Membuat thread untuk request data ke BikeWise API
         this.requestThread = new RequestThread(this.mainActivity,this.uiThreadWrapper, this.proximity);
         this.requestThread.startThread();

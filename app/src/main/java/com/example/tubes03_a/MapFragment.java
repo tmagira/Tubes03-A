@@ -4,6 +4,7 @@ import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,38 +26,40 @@ public class MapFragment extends Fragment implements View.OnClickListener {
     private FragmentListener listener;
     private Button btnSearchMarker;
     public String proximity;
-    LatLng pos;
-    String location;
+    private LatLng pos;
+    private String location;
     private UIThreadWrapper uiThreadWrapper;
     private MainActivity mainActivity;
     private RequestThread requestThread;
-    public MapFragment(){}
+
+    public MapFragment() {
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.map_fragment,container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.map_fragment, container, false);
         this.btnSearchMarker = view.findViewById(R.id.btn_search_marker);
         this.uiThreadWrapper = new UIThreadWrapper(this);
         SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.google_map);
-        supportMapFragment.getMapAsync(new onMapReadyCallBack(){
+        supportMapFragment.getMapAsync(new onMapReadyCallBack() {
             @Override
-            public void onMapReady(GoogleMap googleMap){
+            public void onMapReady(GoogleMap googleMap) {
                 googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(LatLng latLng) {
                         MarkerOptions markerOptions = new MarkerOptions();
                         markerOptions.position(latLng);
                         pos = latLng;
-                        markerOptions.title(latLng.latitude +":"+latLng.longitude);
+                        markerOptions.title(latLng.latitude + ":" + latLng.longitude);
                         googleMap.clear();
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                                latLng,10
+                                latLng, 10
                         ));
                         googleMap.addMarker(markerOptions);
                         Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
                         try {
-                            List<Address> list = geocoder.getFromLocation(pos.latitude,pos.longitude,1);
-                            location = list.get(0).getAddressLine(0)+", "+list.get(0).getCountryName();
+                            List<Address> list = geocoder.getFromLocation(pos.latitude, pos.longitude, 1);
+                            location = list.get(0).getAddressLine(0) + ", " + list.get(0).getCountryName();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -70,24 +73,29 @@ public class MapFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onAttach(Context context){
+    public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof FragmentListener){
+        if (context instanceof FragmentListener) {
             this.listener = (FragmentListener) context;
-        }else{
-            throw new ClassCastException(context.toString()+ " Must Implement Fragment Listener");
+        } else {
+            throw new ClassCastException(context.toString() + " Must Implement Fragment Listener");
         }
     }
 
-    public static MapFragment newInstance(){
+    public static MapFragment newInstance() {
         MapFragment fragment = new MapFragment();
         return fragment;
     }
+
     @Override
     public void onClick(View v) {
-        this.proximity = location;
-        //Membuat thread untuk request data ke BikeWise API
-        this.requestThread = new RequestThread(this.mainActivity,this.uiThreadWrapper, this.proximity);
-        this.requestThread.startThread();
+        if (v == this.btnSearchMarker) {
+            this.proximity = location;
+            this.proximity = "Jakarta";
+
+            //Send Proximity to FilterFragment
+            this.listener.sendProximity(this.proximity);
         }
+
     }
+}

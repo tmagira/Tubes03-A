@@ -39,7 +39,6 @@ public class FilterFragment extends Fragment implements View.OnClickListener{
     private MainActivity mainActivity;
     private ArrayList<BikeReport> reports = new ArrayList<>();
     private ListView listView;
-
     public String proximity;
     BikeReportAdapter adapter;
     public FilterFragment(){}
@@ -77,11 +76,13 @@ public class FilterFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        this.proximity = this.etLocation.getText().toString();
+        if(v==this.btnFind){
+            this.proximity = this.etLocation.getText().toString();
 
-        //Membuat thread untuk request data ke BikeWise API
-        this.requestThread = new RequestThread(this.mainActivity,this.uiThreadWrapper, this.proximity);
-        this.requestThread.startThread();
+            //Membuat thread untuk request data ke BikeWise API
+            this.requestThread = new RequestThread(this.mainActivity,this.uiThreadWrapper, this.proximity);
+            this.requestThread.startThread();
+        }
     }
 
     //Menampilkan data incident dari BikeWise API ke dalam list
@@ -93,7 +94,10 @@ public class FilterFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onResume() {
         super.onResume();
-        etLocation.setText(etLocation.getText().toString());
-        adapter.notifyDataSetChanged();
+        this.etLocation.setText(this.proximity);
+    }
+
+    public void setProximity(String proximity) {
+        this.proximity = proximity;
     }
 }

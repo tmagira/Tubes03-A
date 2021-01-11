@@ -59,7 +59,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
                         Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
                         try {
                             List<Address> list = geocoder.getFromLocation(pos.latitude, pos.longitude, 1);
-                            location = list.get(0).getAddressLine(0) + ", " + list.get(0).getCountryName();
+                            location = list.get(0).getSubAdminArea();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -91,7 +91,6 @@ public class MapFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if (v == this.btnSearchMarker) {
             this.proximity = location;
-            this.proximity = "Jakarta";
 
             //Send Proximity to FilterFragment
             this.listener.sendProximity(this.proximity);

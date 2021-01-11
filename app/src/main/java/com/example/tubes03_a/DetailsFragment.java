@@ -22,11 +22,15 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.squareup.picasso.Picasso;
 
+import org.parceler.Parcels;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import static android.content.Intent.getIntent;
 
 public class DetailsFragment extends Fragment implements  OnMapReadyCallback{
     private FragmentListener listener;
@@ -52,7 +56,7 @@ public class DetailsFragment extends Fragment implements  OnMapReadyCallback{
         //Membaca Bundle
         Bundle b = getArguments();
         if (b != null) {
-            this.report = b.getParcelable("report");
+            this.report = Parcels.unwrap(b.getParcelable("report"));
 
             //Reformat UNIX Timestamp
             long unixSeconds = this.report.getOccurredAt();

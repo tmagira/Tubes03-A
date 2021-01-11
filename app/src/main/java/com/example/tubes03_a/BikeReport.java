@@ -1,12 +1,16 @@
 package com.example.tubes03_a;
 
-import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.parceler.Parcel;
+
 //Kelas Model Bike Report
-public class BikeReport implements Parcelable {
+@Parcel
+public class BikeReport {
     private String title, type, address, linkImage, desc;
     private int occurredAt;
+
+    public BikeReport(){}
 
     //Constructor
     public BikeReport(String title, String type, int occurredAt,
@@ -19,38 +23,6 @@ public class BikeReport implements Parcelable {
         this.desc = desc;
     }
 
-    protected BikeReport(Parcel in) {
-        title = in.readString();
-        type = in.readString();
-        occurredAt = in.readInt();
-        address = in.readString();
-        linkImage = in.readString();
-        desc = in.readString();
-    }
-
-    public static final Creator<BikeReport> CREATOR = new Creator<BikeReport>() {
-        @Override
-        public BikeReport createFromParcel(Parcel in) {
-            return new BikeReport(in);
-        }
-
-        @Override
-        public BikeReport[] newArray(int size) {
-            return new BikeReport[size];
-        }
-    };
-
-    @Override
-    public String toString() {
-        return "BikeReport{" +
-                "title='" + title + '\'' +
-                ", type='" + type + '\'' +
-                ", address='" + address + '\'' +
-                ", linkImage='" + linkImage + '\'' +
-                ", desc='" + desc + '\'' +
-                ", occurredAt=" + occurredAt +
-                '}';
-    }
 
     public String getTitle() {
         return title;
@@ -100,18 +72,5 @@ public class BikeReport implements Parcelable {
         this.desc = desc;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.title);
-        dest.writeString(this.type);
-        dest.writeInt(this.occurredAt);
-        dest.writeString(this.address);
-        dest.writeString(this.desc);
-        dest.writeString(this.linkImage);
-    }
 }

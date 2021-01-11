@@ -5,9 +5,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -55,8 +58,10 @@ public class MainActivity extends AppCompatActivity implements FragmentListener{
     public void createDetails(BikeReport report) {
         //Mengirim bundle ke details fragment
         this.ft = this.fragmentManager.beginTransaction();
+
+        Parcelable wrapped = Parcels.wrap(report);
         Bundle bundle = new Bundle();
-        bundle.putParcelable("report", report);
+        bundle.putParcelable("report", wrapped);
         this.detailsFragment.setArguments(bundle);
         changePage(4);
     }

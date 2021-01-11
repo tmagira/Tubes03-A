@@ -2,6 +2,7 @@ package com.example.tubes03_a;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -54,6 +57,7 @@ public class BikeReportAdapter extends BaseAdapter {
         title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 listener.createDetails(currentReport);
             }
         });

@@ -14,6 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import timber.log.Timber;
 import java.util.List;
 
 public class RequestThread implements Runnable {
@@ -89,7 +90,8 @@ public class RequestThread implements Runnable {
                         desc = (String) obj.getJSONArray("incidents").getJSONObject(i).get("description");
                     }
                     catch(Exception e) {
-                        Log.d("app", "run: Description null");
+                        Timber.d(e, e.getMessage());
+                      //  Log.d("app", "run: Description null");
                     }
                     //buat objek bike new report
                     BikeReport newReport = new BikeReport(title, type, occuredAt, address,linkImage, desc);
@@ -99,20 +101,24 @@ public class RequestThread implements Runnable {
                 this.uiThreadWrapper.setResult(resultList);
 
             } catch (Throwable t) {
-                Log.e("My App", "Could not parse malformed JSON: ");
+                Timber.d(t, t.getMessage());
+                //Log.e("My App", "Could not parse malformed JSON: ");
             }
 
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            Timber.d(e, e.getMessage());
+           // e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            Timber.d(e, e.getMessage());
+            //e.printStackTrace();
         } finally {
             conn.disconnect();
             if (inputStream != null) {
                 try {
                     inputStream.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Timber.d(e, e.getMessage());
+                   // e.printStackTrace();
                 }
             }
 

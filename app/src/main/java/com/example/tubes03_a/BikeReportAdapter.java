@@ -24,6 +24,9 @@ public class BikeReportAdapter extends BaseAdapter {
     private Activity activity;
     private MainActivity mainActivity;
     private FragmentListener listener;
+    private DataBaseHandler dataBaseHandler;
+    private String newTitle, newType,newAddress,newLink,newDesc;
+    private int newOccured;
 
     public BikeReportAdapter(Activity activity, ArrayList<BikeReport> reports, FragmentListener listener) {
         this.reports = reports;
@@ -59,6 +62,14 @@ public class BikeReportAdapter extends BaseAdapter {
             public void onClick(View v) {
 
                 listener.createDetails(currentReport);
+                newTitle =currentReport.getTitle().toString().toLowerCase();
+                newType = currentReport.getType().toString().toLowerCase();
+                newOccured = currentReport.getOccurredAt();
+                newAddress = currentReport.getAddress().toString().toLowerCase();
+                newLink =currentReport.getLink().toString().toLowerCase();
+                newDesc =currentReport.getDesc().toString().toLowerCase();
+                BikeReport item = new BikeReport(newTitle, newType, newOccured, newAddress, newLink, newDesc);
+                dataBaseHandler.addRecord(item);
             }
         });
         return convertView;

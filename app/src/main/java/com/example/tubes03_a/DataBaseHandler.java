@@ -26,7 +26,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final String KEY_ID = "id";
     private static final String KEY_TITLE = "title";
     private static final String KEY_TYPE = "type";
-    private static final int KEY_OCCURREDAT = 0;
+    private static final String KEY_OCCURREDAT = "occuredat";
     private static final String KEY_ADDRESS = "address";
     private static final String KEY_LINKIMAGE = "link";
     private static final String KEY_DESC = "desc";
@@ -44,7 +44,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_HISTORY + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TITLE + " TEXT,"
-                + KEY_TYPE + " TEXT, " + KEY_OCCURREDAT + "INTEGER PRIMARY KEY," + KEY_ADDRESS + " TEXT," + KEY_LINKIMAGE + "TEXT," + KEY_DESC + "TEXT" + ")";
+                + KEY_TYPE + " TEXT, " + KEY_OCCURREDAT + "INTEGER," + KEY_ADDRESS + " TEXT," + KEY_LINKIMAGE + "TEXT," + KEY_DESC + "TEXT" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
 
@@ -61,7 +61,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE, report.getTitle());
         values.put(KEY_TYPE, report.getType());
-        values.put(String.valueOf(KEY_OCCURREDAT), report.getOccurredAt());
+        values.put(KEY_OCCURREDAT, report.getOccurredAt());
         values.put(KEY_ADDRESS, report.getAddress());
         values.put(KEY_LINKIMAGE, report.getLink());
         values.put(KEY_DESC, report.getDesc());
@@ -69,20 +69,20 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public BikeReport getContact(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(TABLE_HISTORY, new String[]{KEY_ID,
-                        KEY_TITLE, KEY_TYPE, String.valueOf(KEY_OCCURREDAT), KEY_ADDRESS, KEY_LINKIMAGE, KEY_DESC}, KEY_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        BikeReport contact = new BikeReport(cursor.getString(0),
-                cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6));
-        // return contact
-        return contact;
-    }
+//    public BikeReport getContact(int id) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        Cursor cursor = db.query(TABLE_HISTORY, new String[]{KEY_ID,
+//                        KEY_TITLE, KEY_TYPE, String.valueOf(KEY_OCCURREDAT), KEY_ADDRESS, KEY_LINKIMAGE, KEY_DESC}, KEY_ID + "=?",
+//                new String[]{String.valueOf(id)}, null, null, null, null);
+//        if (cursor != null)
+//            cursor.moveToFirst();
+//
+//        BikeReport contact = new BikeReport(cursor.getString(0),
+//                cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6));
+//        // return contact
+//        return contact;
+//    }
 
     public List<BikeReport> getFilteredRecord(String tag) {
         List<BikeReport> contactList = new ArrayList<BikeReport>();
@@ -96,7 +96,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 BikeReport report = new BikeReport();
-                //report.setId(Integer.parseInt(cursor.getString(0)));
+                report.setId(Integer.parseInt(cursor.getString(0)));
                 report.setTitle(cursor.getString(1));
                 report.setType(cursor.getString(2));
                 report.setOccurredAt(cursor.getInt(3));
@@ -123,7 +123,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 BikeReport report = new BikeReport();
-                //report.setId(Integer.parseInt(cursor.getString(0)));
+                report.setId(Integer.parseInt(cursor.getString(0)));
                 report.setTitle(cursor.getString(1));
                 report.setType(cursor.getString(2));
                 report.setOccurredAt(cursor.getInt(3));

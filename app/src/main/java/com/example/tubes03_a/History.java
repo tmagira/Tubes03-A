@@ -15,6 +15,9 @@ public class History extends Fragment implements View.OnClickListener{
     private ListView listView;
     private FragmentListener listener;
     private Presenter presenter;
+    private ArrayList<BikeReport> reports = new ArrayList<>();
+    BikeReportAdapter adapter;
+    DataBaseHandler dataBaseHandler;
 
     public History(){}
     @Override
@@ -23,7 +26,9 @@ public class History extends Fragment implements View.OnClickListener{
 
         //Assign view
         this.listView = view.findViewById(R.id.list_report_history);
-        presenter.loadData();
+        this.dataBaseHandler = new DataBaseHandler(getActivity());
+        this.adapter = new BikeReportAdapter(getActivity(),reports,listener,dataBaseHandler);
+        this.loadData();
         return view;
     }
 
@@ -43,8 +48,9 @@ public class History extends Fragment implements View.OnClickListener{
     }
 
     //Menampilkan data incident dari BikeWise API ke dalam list
-    public void loadData(ArrayList<BikeReport> reports) {
-
+    public void loadData() {
+        this.reports.addAll(dataBaseHandler.getAllRecord());
+        this.adapter.notifyDataSetChanged();
     }
 
     @Override

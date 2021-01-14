@@ -37,10 +37,11 @@ public class FilterFragment extends Fragment implements View.OnClickListener{
     private RequestThread requestThread;
     private UIThreadWrapper uiThreadWrapper;
     private MainActivity mainActivity;
-    private ArrayList<BikeReport> reports = new ArrayList<>();
+    private ArrayList<BikeReport> reports;
     private ListView listView;
     public String proximity;
     BikeReportAdapter adapter;
+    DataBaseHandler dataBaseHandler;
     public FilterFragment(){}
 
     @Override
@@ -53,9 +54,10 @@ public class FilterFragment extends Fragment implements View.OnClickListener{
         this.etLocation = view.findViewById(R.id.et_location);
 
         this.btnFind.setOnClickListener(this);
-
+        reports  = new ArrayList<>();
         this.listView = view.findViewById(R.id.list_report);
-        this.adapter= new BikeReportAdapter(getActivity(), reports, this.listener);
+        this.dataBaseHandler = new DataBaseHandler(getActivity());
+        this.adapter= new BikeReportAdapter(getActivity(), reports, this.listener,dataBaseHandler);
         return view;
     }
 
@@ -87,14 +89,16 @@ public class FilterFragment extends Fragment implements View.OnClickListener{
 
     //Menampilkan data incident dari BikeWise API ke dalam list
     public void loadData(ArrayList<BikeReport> reports) {
-        adapter= new BikeReportAdapter(getActivity(), reports, this.listener);
+        adapter= new BikeReportAdapter(getActivity(), reports, this.listener,dataBaseHandler);
         listView.setAdapter(adapter);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        this.etLocation.setText(this.proximity);
+        //etLocation.setText(proximity);
+        this.requestThread = new RequestThread(this.mainActivity,this.uiThreadWrapper, this.proximity);
+        this.requestThread.startThread();
     }
 
     public void setProximity(String proximity) {

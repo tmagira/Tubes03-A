@@ -94,7 +94,7 @@ public class RequestThread implements Runnable {
                       //  Log.d("app", "run: Description null");
                     }
                     //buat objek bike new report
-                    BikeReport newReport = new BikeReport(title, type, occuredAt, address,linkImage, desc);
+                    BikeReport newReport = new BikeReport(0,title, type, occuredAt, address,linkImage, desc);
                     resultList.add(newReport);
                 }
 

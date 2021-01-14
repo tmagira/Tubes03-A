@@ -25,13 +25,14 @@ public class BikeReportAdapter extends BaseAdapter {
     private MainActivity mainActivity;
     private FragmentListener listener;
     private DataBaseHandler dataBaseHandler;
-    private String newTitle, newType,newAddress,newLink,newDesc;
+    private String newTitle="", newType,newAddress,newLink,newDesc;
     private int newOccured;
 
-    public BikeReportAdapter(Activity activity, ArrayList<BikeReport> reports, FragmentListener listener) {
+    public BikeReportAdapter(Activity activity, ArrayList<BikeReport> reports, FragmentListener listener,DataBaseHandler dataBaseHandler) {
         this.reports = reports;
         this.activity = activity;
         this.listener = listener;
+        this.dataBaseHandler =dataBaseHandler;
     }
 
     @Override
@@ -68,7 +69,7 @@ public class BikeReportAdapter extends BaseAdapter {
                 newAddress = currentReport.getAddress().toString().toLowerCase();
                 newLink =currentReport.getLink().toString().toLowerCase();
                 newDesc =currentReport.getDesc().toString().toLowerCase();
-                BikeReport item = new BikeReport(newTitle, newType, newOccured, newAddress, newLink, newDesc);
+                BikeReport item = new BikeReport(0,newTitle, newType, newOccured, newAddress, newLink, newDesc);
                 dataBaseHandler.addRecord(item);
             }
         });

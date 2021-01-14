@@ -8,13 +8,14 @@ import org.parceler.Parcel;
 @Parcel
 public class BikeReport {
     private String title, type, address, linkImage, desc;
-    private int occurredAt;
+    private int occurredAt,id;
 
     public BikeReport(){}
 
     //Constructor
-    public BikeReport(String title, String type, int occurredAt,
+    public BikeReport(int id,String title, String type, int occurredAt,
                       String address, String link, String desc) {
+        this.id =id;
         this.title = title;
         this.type = type;
         this.occurredAt = occurredAt;
@@ -23,9 +24,13 @@ public class BikeReport {
         this.desc = desc;
     }
 
-    public BikeReport(String string, String string1, int parseInt, String string2, String string3, String string4, String string5) {
+    public int getId() {
+        return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;

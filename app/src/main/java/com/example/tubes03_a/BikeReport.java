@@ -23,6 +23,9 @@ public class BikeReport {
         this.desc = desc;
     }
 
+    public BikeReport(String string, String string1, int parseInt, String string2, String string3, String string4, String string5) {
+    }
+
 
     public String getTitle() {
         return title;

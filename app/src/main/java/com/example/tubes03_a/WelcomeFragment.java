@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 public class WelcomeFragment extends Fragment implements View.OnClickListener{
     private FragmentListener listener;
-    private Button btnSearch,btnnMap;
+    private Button btnSearch,btnnMap,btnHistory;
 
     public WelcomeFragment(){}
 
@@ -21,8 +21,10 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener{
 
         this.btnSearch = view.findViewById(R.id.btn_search);
         this.btnnMap = view.findViewById(R.id.btn_map);
+        this.btnHistory =view.findViewById(R.id.btn_history);
         this.btnSearch.setOnClickListener(this);
         this.btnnMap.setOnClickListener(this);
+        this.btnHistory.setOnClickListener(this);
         return view;
     }
 
@@ -45,8 +47,10 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         if (v==this.btnSearch){
             listener.changePage(3);
-        }else  if (v==this.btnnMap){
+        }else if (v==this.btnnMap){
             listener.changePage(2);
+        }else if (v==this.btnHistory){
+            listener.changePage(5);
         }
     }
 }

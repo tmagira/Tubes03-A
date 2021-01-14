@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener{
     private DetailsFragment detailsFragment;
     protected FilterFragment filterFragment;
     private MapFragment mapFragment;
+    private History history;
     private WelcomeFragment welcomeFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction ft;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener{
         this.detailsFragment = DetailsFragment.newInstance();
         this.filterFragment = FilterFragment.newInstance();
         this.mapFragment = MapFragment.newInstance();
+        this.history = History.newInstance();
         this.welcomeFragment = WelcomeFragment.newInstance();
         this.fragmentManager = getSupportFragmentManager();
 
@@ -50,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements FragmentListener{
             ft.replace(R.id.fragment_container, this.filterFragment).addToBackStack(null);
         }else if (page == 4) {
             ft.replace(R.id.fragment_container, this.detailsFragment).addToBackStack(null);
+        }else if (page == 5) {
+            ft.replace(R.id.fragment_container, this.history).addToBackStack(null);
         }
         this.ft.commit();
     }

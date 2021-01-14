@@ -9,9 +9,11 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
+
 public class WelcomeFragment extends Fragment implements View.OnClickListener{
     private FragmentListener listener;
-    private Button btnSearch,btnnMap,btnHistory;
+    private BootstrapButton btnSearch,btnnMap,btnHistory;
 
     public WelcomeFragment(){}
 

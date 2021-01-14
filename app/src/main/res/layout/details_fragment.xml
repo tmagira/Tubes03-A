@@ -18,7 +18,7 @@
         android:id="@+id/tv_title"
         android:layout_below="@+id/iv_picture"
         android:textSize="20sp"
-        android:textColor="@color/design_default_color_primary"
+        android:textColor="#0275d8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Title of the Incident"

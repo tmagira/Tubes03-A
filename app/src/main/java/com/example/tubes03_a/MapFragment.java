@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -24,7 +25,7 @@ import java.util.Locale;
 
 public class MapFragment extends Fragment implements View.OnClickListener {
     private FragmentListener listener;
-    private Button btnSearchMarker;
+    private BootstrapButton btnSearchMarker;
     public String proximity;
     private LatLng pos;
     private String location;

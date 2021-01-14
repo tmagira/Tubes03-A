@@ -21,15 +21,18 @@ public class RequestThread implements Runnable {
     protected MainActivity mainActivity;
     protected Thread thread;
     protected UIThreadWrapper uiThreadWrapper;
-    protected final String BASE_URL = "https://bikewise.org/api/v2/incidents?proximity=", PROXIMITY = "proximity";
+    protected final String BASE_URL = "https://bikewise.org/api/v2/incidents?proximity=", PROXIMITY = "proximity", INCIDENT = "incident_type";
 
     protected String proximity;
+    protected String type;
 
-    public RequestThread(MainActivity mainActivity, UIThreadWrapper uiThreadWrapper, String proximity) {
+
+    public RequestThread(MainActivity mainActivity, UIThreadWrapper uiThreadWrapper, String proximity, String type) {
         this.thread = new Thread(this);
         this.mainActivity = mainActivity;
         this.uiThreadWrapper = uiThreadWrapper;
         this.proximity = proximity;
+        this.type = type;
     }
 
     public void startThread() {
@@ -49,7 +52,12 @@ public class RequestThread implements Runnable {
 
     @Override
     public void run() {
-        Uri builtURI = Uri.parse(BASE_URL).buildUpon().appendQueryParameter(PROXIMITY, this.proximity).build();
+        Uri builtURI;
+        if(this.type != ""){
+            builtURI = Uri.parse(BASE_URL).buildUpon().appendQueryParameter(INCIDENT, this.type).appendQueryParameter(PROXIMITY, this.proximity).build();
+        }else{
+            builtURI = Uri.parse(BASE_URL).buildUpon().appendQueryParameter(PROXIMITY, this.proximity).build();
+        }
         HttpURLConnection conn = null;
         InputStream inputStream = null;
 

@@ -74,25 +74,9 @@ public class DetailsFragment extends Fragment implements  OnMapReadyCallback{
 
 
             Picasso.get().load(this.report.getLink()).into(this.ivPic);
-            Toast.makeText(getActivity(), getLocationFromAddress(getContext(),this.report.getAddress()).toString(),Toast.LENGTH_LONG).show();
-            SupportMapFragment mapFragment = ((SupportMapFragment) getChildFragmentManager()
-                    .findFragmentById(R.id.google_map2));
-            mapFragment.getMapAsync(new OnMapReadyCallback() {
-                @Override
-                public void onMapReady(GoogleMap googleMap){
-                    String add = (String) tvAddress.getText();
-                    LatLng loc = getLocationFromAddress(getContext(),add);
-                    googleMap.addMarker(new MarkerOptions()
-                            .position(loc)
-                            .title("Tempat Terjadi Insiden"));
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
-                    googleMap.animateCamera(CameraUpdateFactory.zoomIn());
-                    // Zoom out to zoom level 10, animating with a duration of 2 seconds.
-                    googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
-                }
-            });
-        } else {
-            Toast.makeText(getActivity(), "Report Not Found",Toast.LENGTH_LONG).show();
+
+            final SupportMapFragment myMAPF = (SupportMapFragment) (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.google_map2);
+            myMAPF.getMapAsync(this);
         }
 
         return view;
@@ -139,11 +123,16 @@ public class DetailsFragment extends Fragment implements  OnMapReadyCallback{
 
     @Override
     public void onMapReady(GoogleMap googleMap){
-        LatLng loc = getLocationFromAddress(getContext(),this.report.getAddress());
-        googleMap.addMarker(new MarkerOptions()
-                .position(loc)
-                .title("Tempat Terjadi Insiden"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+        String add = (String) tvAddress.getText();
+        LatLng loc = getLocationFromAddress(getContext(),add);
+
+        LatLng markerLoc = new LatLng(loc.latitude, loc.longitude);
+        googleMap.addMarker(new MarkerOptions().position(markerLoc).title("Incident Location"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(markerLoc));
+        googleMap.animateCamera(CameraUpdateFactory.zoomIn());
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
     }
+
+
 
 }

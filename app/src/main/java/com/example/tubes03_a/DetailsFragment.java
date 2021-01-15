@@ -99,7 +99,6 @@ public class DetailsFragment extends Fragment implements  OnMapReadyCallback{
 
     //ubah location name jadi lat long
     public LatLng getLocationFromAddress(Context context,String strAddress) {
-
         Geocoder coder = new Geocoder(context);
         List<Address> address;
         LatLng p1 = null;
@@ -116,6 +115,7 @@ public class DetailsFragment extends Fragment implements  OnMapReadyCallback{
 
         } catch (IOException ex) {
             ex.printStackTrace();
+            Log.d("okbgt", "getLocationFromAddress: eeee");
         }
 
         return p1;

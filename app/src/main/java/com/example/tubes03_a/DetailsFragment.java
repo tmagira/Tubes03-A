@@ -74,24 +74,25 @@ public class DetailsFragment extends Fragment implements  OnMapReadyCallback{
 
 
             Picasso.get().load(this.report.getLink()).into(this.ivPic);
-//            Toast.makeText(getActivity(), getLocationFromAddress(getContext(),this.report.getAddress()).toString(),Toast.LENGTH_LONG).show();
-//            SupportMapFragment mapFragment = ((SupportMapFragment) getChildFragmentManager()
-//                    .findFragmentById(R.id.google_map2));
-//            mapFragment.getMapAsync(new OnMapReadyCallback() {
-//                @Override
-//                public void onMapReady(GoogleMap googleMap){
-//                    LatLng loc = getLocationFromAddress(getContext(),tvAddress.getText().toString());
-//                    googleMap.addMarker(new MarkerOptions()
-//                            .position(loc)
-//                            .title("Tempat Terjadi Insiden"));
-//                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
-//                    googleMap.animateCamera(CameraUpdateFactory.zoomIn());
-//                    // Zoom out to zoom level 10, animating with a duration of 2 seconds.
-//                    googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
-//                }
-//            });
-//        } else {
-//            Toast.makeText(getActivity(), "Report Not Found",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getLocationFromAddress(getContext(),this.report.getAddress()).toString(),Toast.LENGTH_LONG).show();
+            SupportMapFragment mapFragment = ((SupportMapFragment) getChildFragmentManager()
+                    .findFragmentById(R.id.google_map2));
+            mapFragment.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap){
+                    String add = (String) tvAddress.getText();
+                    LatLng loc = getLocationFromAddress(getContext(),add);
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(loc)
+                            .title("Tempat Terjadi Insiden"));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+                    googleMap.animateCamera(CameraUpdateFactory.zoomIn());
+                    // Zoom out to zoom level 10, animating with a duration of 2 seconds.
+                    googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+                }
+            });
+        } else {
+            Toast.makeText(getActivity(), "Report Not Found",Toast.LENGTH_LONG).show();
         }
 
         return view;

@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener{
     @Override
     public void sendProximity(String proximity) {
         this.filterFragment.setProximity(proximity);
+//        this.filterFragment.setText(proximity);
         changePage(3);
     }
 

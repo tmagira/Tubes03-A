@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import timber.log.Timber;
+
 public class MapFragment extends Fragment implements View.OnClickListener {
     private FragmentListener listener;
     private BootstrapButton btnSearchMarker;
@@ -59,9 +61,10 @@ public class MapFragment extends Fragment implements View.OnClickListener {
                         googleMap.addMarker(markerOptions);
                         Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
                         try {
-                            List<Address> list = geocoder.getFromLocation(pos.latitude, pos.longitude, 1);
-                            location = list.get(0).getSubAdminArea();
+                            List<Address> list = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+                            location = list.get(0).getAddressLine(0);
                         } catch (IOException e) {
+                            Timber.d(e);
                             e.printStackTrace();
                         }
                     }

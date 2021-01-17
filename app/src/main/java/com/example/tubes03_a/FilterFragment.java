@@ -73,7 +73,6 @@ public class FilterFragment extends Fragment implements View.OnClickListener{
         ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item,type);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         this.spinnerType.setAdapter(arrayAdapter);
-
         return view;
     }
 
@@ -120,11 +119,15 @@ public class FilterFragment extends Fragment implements View.OnClickListener{
     public void onResume() {
         super.onResume();
         //etLocation.setText(proximity);
+        setText(proximity);
         this.requestThread = new RequestThread(this.mainActivity,this.uiThreadWrapper, this.proximity, this.type);
         this.requestThread.startThread();
     }
 
     public void setProximity(String proximity) {
         this.proximity = proximity;
+    }
+    public void setText(String proximity) {
+        this.etLocation.setText(this.proximity);
     }
 }

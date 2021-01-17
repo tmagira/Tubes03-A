@@ -52,7 +52,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_below="@id/tv_address"
-        android:layout_height="150dp" />
+        android:layout_height="200dp" />
 
     <TextView
         android:id="@+id/tv_type"

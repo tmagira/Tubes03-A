@@ -61,16 +61,10 @@ public class BikeReportAdapter extends BaseAdapter {
         title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                listener.createDetails(currentReport);
                 newTitle =currentReport.getTitle().toString().toLowerCase();
-                newType = currentReport.getType().toString().toLowerCase();
-                newOccured = currentReport.getOccurredAt();
-                newAddress = currentReport.getAddress().toString().toLowerCase();
-                newLink =currentReport.getLink().toString().toLowerCase();
-                newDesc =currentReport.getDesc().toString().toLowerCase();
-                BikeReport item = new BikeReport(0,newTitle, newType, newOccured, newAddress, newLink, newDesc);
+                BikeReport item = new BikeReport(0,newTitle);
                 dataBaseHandler.addRecord(item);
+                listener.createDetails(currentReport);
             }
         });
         return convertView;

@@ -1,6 +1,8 @@
 package com.example.tubes03_a;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -29,6 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import static android.content.Intent.getIntent;
 
@@ -41,6 +45,7 @@ public class DetailsFragment extends Fragment implements  OnMapReadyCallback{
     private MapFragment mapFragment;
     public DetailsFragment(){}
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.details_fragment,container, false);
@@ -72,8 +77,11 @@ public class DetailsFragment extends Fragment implements  OnMapReadyCallback{
             this.tvDesc.setText(this.report.getDesc());
 
 
-
-            Picasso.get().load(this.report.getLink()).into(this.ivPic);
+            if (this.report.getLink()!=null){
+                Picasso.get().load(this.report.getLink()).into(this.ivPic);
+            }else{
+                Picasso.get().load("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwestsiderc.org%2Fboard-of-directors%2Fimage-not-available%2F&psig=AOvVaw1pm_f3iT_QANGVTVhAqIgf&ust=1610995622878000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOC928DQo-4CFQAAAAAdAAAAABAI").into(this.ivPic);
+            }
 
 
             final SupportMapFragment myMAPF = (SupportMapFragment) (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.google_map2);
@@ -89,10 +97,11 @@ public class DetailsFragment extends Fragment implements  OnMapReadyCallback{
                     googleMap.addMarker(new MarkerOptions()
                             .position(loc)
                             .title("Tempat Terjadi Insiden"));
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
-                    googleMap.animateCamera(CameraUpdateFactory.zoomIn());
-                    // Zoom out to zoom level 10, animating with a duration of 2 seconds.
-                    googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+                    //buat supaya marker ditengah
+                    CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(loc, 11.0f);
+                    googleMap.animateCamera(yourLocation);
+                    //supaya map tidak bisa digeser
+                    googleMap.getUiSettings().setScrollGesturesEnabled(false);
                 }
             });
         } else {

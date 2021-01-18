@@ -50,6 +50,7 @@ public class HistoryAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 BikeReport item = currentReport;
+                //judulnya akan disimpan kedata base
                 currentReport.save();
                 listener.createDetails(currentReport);
             }

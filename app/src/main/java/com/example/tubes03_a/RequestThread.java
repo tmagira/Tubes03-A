@@ -84,9 +84,9 @@ public class RequestThread implements Runnable {
                     String type = (String) obj.getJSONArray("incidents").getJSONObject(i).get("type");
                     int occuredAt = (int) obj.getJSONArray("incidents").getJSONObject(i).get("occurred_at");
                     String address = (String) obj.getJSONArray("incidents").getJSONObject(i).get("address");
-
                     String linkImage = "No Image";
                     try {
+                        //jika kecelakaan ada incident maka no image akan terganti menjadi link kecelakaan
                         linkImage = (String) obj.getJSONArray("incidents").getJSONObject(i).getJSONObject("media").get("image_url");
                     }
                     catch(Exception e) {

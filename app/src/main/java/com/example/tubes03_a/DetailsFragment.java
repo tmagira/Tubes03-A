@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.common.logging.Logger;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,7 +34,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import static android.content.Intent.getIntent;
 
@@ -153,19 +153,5 @@ public class DetailsFragment extends Fragment implements  OnMapReadyCallback{
 
         return p1;
     }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap){
-        String add = (String) tvAddress.getText();
-        LatLng loc = getLocationFromAddress(getContext(),add);
-
-        LatLng markerLoc = new LatLng(loc.latitude, loc.longitude);
-        googleMap.addMarker(new MarkerOptions().position(markerLoc).title("Incident Location"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(markerLoc));
-        googleMap.animateCamera(CameraUpdateFactory.zoomIn());
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
-    }
-
-
 
 }

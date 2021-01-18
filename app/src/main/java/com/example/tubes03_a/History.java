@@ -16,7 +16,6 @@ import java.util.List;
 public class History extends Fragment implements View.OnClickListener{
     private ListView listView;
     private FragmentListener listener;
-    private Presenter presenter;
     private ArrayList<BikeReport> reports = new ArrayList<>();
     private HistoryAdapter adapter;
 

@@ -47,7 +47,6 @@ public class FilterFragment extends Fragment implements View.OnClickListener{
     private ListView listView;
     public String proximity, type;
     BikeReportAdapter adapter;
-    DataBaseHandler dataBaseHandler;
 
     private Spinner spinnerType;
     public FilterFragment(){}
@@ -65,8 +64,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener{
         this.btnFind.setOnClickListener(this);
         reports  = new ArrayList<>();
         this.listView = view.findViewById(R.id.list_report);
-        this.dataBaseHandler = new DataBaseHandler(getActivity());
-        this.adapter= new BikeReportAdapter(getActivity(), reports, this.listener,dataBaseHandler);
+        this.adapter= new BikeReportAdapter(getActivity(), reports, this.listener);
 
         //Adapter Dropdown
         String[] type = new String[]{"All", "Crash", "Theft", "Hazard", "Chop Shop", "Infrastructure"};
@@ -111,16 +109,17 @@ public class FilterFragment extends Fragment implements View.OnClickListener{
 
     //Menampilkan data incident dari BikeWise API ke dalam list
     public void loadData(ArrayList<BikeReport> reports) {
-        adapter= new BikeReportAdapter(getActivity(), reports, this.listener,dataBaseHandler);
+        adapter= new BikeReportAdapter(getActivity(), reports, this.listener);
         listView.setAdapter(adapter);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        //etLocation.setText(proximity);
+        //supaya kalau back nama lokasi tidak hilang
         setText(proximity);
         this.requestThread = new RequestThread(this.mainActivity,this.uiThreadWrapper, this.proximity, this.type);
+        //jika habis back dari details,list view tidak hilang
         this.requestThread.startThread();
     }
 

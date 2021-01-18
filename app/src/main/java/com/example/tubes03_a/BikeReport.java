@@ -1,14 +1,30 @@
 package com.example.tubes03_a;
 
-import android.os.Parcelable;
+import com.orm.SugarRecord;
+import com.orm.dsl.Column;
+import com.orm.dsl.Unique;
 
 import org.parceler.Parcel;
 
 //Kelas Model Bike Report
 @Parcel
-public class BikeReport {
-    private String title, type, address, linkImage, desc;
-    private int occurredAt,id;
+public class BikeReport extends SugarRecord {
+
+    @Unique
+    @Column(name = "occurredAt")
+    private Integer occurredAt;
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "title")
+    private String title;
+    @Column(name = "type")
+    private String type;
+    @Column(name = "address")
+    private String address;
+    @Column(name = "linkImage")
+    private String linkImage;
+    @Column(name = "desc")
+    private String desc;
 
     public BikeReport(){}
 
@@ -24,8 +40,8 @@ public class BikeReport {
         this.desc = desc;
     }
 
-    public int getId() {
-        return id;
+    public Long getId() {
+        return Long.valueOf(id);
     }
 
     public void setId(int id) {

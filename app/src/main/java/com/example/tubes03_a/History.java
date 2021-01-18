@@ -2,6 +2,7 @@ package com.example.tubes03_a;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +11,14 @@ import android.widget.ListView;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class History extends Fragment implements View.OnClickListener{
     private ListView listView;
     private FragmentListener listener;
     private Presenter presenter;
     private ArrayList<BikeReport> reports = new ArrayList<>();
-    BikeReportAdapter adapter;
-    DataBaseHandler dataBaseHandler;
+    private HistoryAdapter adapter;
 
     public History(){}
     @Override
@@ -26,9 +27,33 @@ public class History extends Fragment implements View.OnClickListener{
 
         //Assign view
         this.listView = view.findViewById(R.id.list_report_history);
-        this.dataBaseHandler = new DataBaseHandler(getActivity());
-        this.adapter = new BikeReportAdapter(getActivity(),reports,listener,dataBaseHandler);
-        this.loadData();
+
+
+        List<BikeReport> list = BikeReport.listAll(BikeReport.class);
+        ArrayList<BikeReport> populationsArrayList = new ArrayList<>();
+        BikeReport bikeReport = new BikeReport();
+
+        for (int i = 0; i < list.size(); i++) {
+            bikeReport = list.get(i);
+            boolean isEquals = false;
+
+            //Cek apakah judul yg sama sudah dimasukkan atau belum
+            for(int j=0;j<=i-1;j++){
+                if(bikeReport.getTitle().equalsIgnoreCase(list.get(j).getTitle())){
+                isEquals = true;
+                break;
+                }
+            }
+
+            //Kalau belum dimasukkan, masukkan ke list
+            if(!isEquals){
+                populationsArrayList.add(bikeReport);
+            }
+        }
+
+        this.adapter = new HistoryAdapter(getActivity(),populationsArrayList,listener);
+        this.listView.setAdapter(adapter);
+
         return view;
     }
 
@@ -47,11 +72,6 @@ public class History extends Fragment implements View.OnClickListener{
         return fragment;
     }
 
-    //Menampilkan data incident dari BikeWise API ke dalam list
-    public void loadData() {
-        this.reports.addAll(dataBaseHandler.getAllRecord());
-        this.adapter.notifyDataSetChanged();
-    }
 
     @Override
     public void onClick(View v) {

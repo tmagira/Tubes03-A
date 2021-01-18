@@ -38,6 +38,7 @@ dependencies {
     implementation 'org.parceler:parceler-api:1.1.12' //Parceler
     implementation 'com.jakewharton.timber:timber:4.7.1'//timber
     implementation 'com.beardedhen:androidbootstrap:2.3.2'//bootstrap
+    implementation 'com.github.satyan:sugar:1.5' // Sugar ORM
     annotationProcessor 'org.parceler:parceler:1.1.12'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

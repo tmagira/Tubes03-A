@@ -3,6 +3,7 @@ package com.example.tubes03_a;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -77,10 +78,12 @@ public class DetailsFragment extends Fragment implements  OnMapReadyCallback{
             this.tvDesc.setText(this.report.getDesc());
 
 
-            if (this.report.getLink()!=null){
+            if (!this.report.getLink().equalsIgnoreCase("No Image")){
                 Picasso.get().load(this.report.getLink()).into(this.ivPic);
+                Log.d("bambang", "onCreateView: ada image");
             }else{
-                Picasso.get().load("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwestsiderc.org%2Fboard-of-directors%2Fimage-not-available%2F&psig=AOvVaw1pm_f3iT_QANGVTVhAqIgf&ust=1610995622878000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOC928DQo-4CFQAAAAAdAAAAABAI").into(this.ivPic);
+              ivPic.setImageResource(R.drawable.imagenot);
+                Log.d("bambang", "onCreateView: ga image" );
             }
 
 
